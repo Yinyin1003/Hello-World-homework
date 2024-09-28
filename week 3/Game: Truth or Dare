@@ -1,0 +1,55 @@
+import random
+
+# Truth and Dare
+events = [
+    "Truth: Answer a secret question", 
+    "Dare: Call a friend and sing a song", 
+    "Truth: Admit your latest lie", 
+    "Dare: Mimic your favorite character for 1 minute", 
+    "Truth: Share your most embarrassing moment", 
+    "Dare: Send a funny message to a group chat"
+]
+def draw_cat():
+    cat = [
+        " /\\_/\\  ",
+        "( o.o ) ",
+        " > ^ <  "
+    ]
+    for line in cat:
+        print(line)
+def roll_dice():
+    return random.randint(1, 6)
+
+def trigger_event(player_name):
+    event = random.choice(events)
+    print(f"{player_name}, your challenge is: {event}")
+
+# input players' names
+players = []
+num_players = int(input("Enter the number of players: "))
+for i in range(num_players):
+    name = input(f"Enter the name of Player {i + 1}: ")
+    players.append(name)
+
+positions = {player: 0 for player in players}
+game_board = 20
+turn = 0 
+
+# Main loop
+while all(pos < game_board for pos in positions.values()):
+    current_player = players[turn % num_players]
+    input(f"{current_player}, press Enter to roll the dice...")
+    dice = roll_dice()
+    positions[current_player] += dice
+    print(f"{current_player} rolled a {dice} and moved to position {positions[current_player]}.")
+
+    if positions[current_player] >= game_board:
+        print(f"Congratulations {current_player}! You've won the game!")
+        draw_cat()
+
+        break
+    
+    trigger_event(current_player)
+    
+    # go to next player
+    turn += 1
