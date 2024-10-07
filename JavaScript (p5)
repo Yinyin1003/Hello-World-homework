@@ -1,3 +1,4 @@
+// Reference: Form+Code in Design, Art, and Architecture (https://formandcode.com/code-examples/repeat-embedded)
 let option = 1;
 
 function setup() {
