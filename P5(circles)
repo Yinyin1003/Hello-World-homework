@@ -6,7 +6,6 @@ function setup() {
 function draw() {
   background(0);  
 
-  // 画 30 个随机位置的圆
   for (var i = 0; i < 20; i++) {
     let x = random(width);  
     let y = random(height);  
