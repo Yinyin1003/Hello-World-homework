@@ -19,42 +19,23 @@ function draw() {
     }
   } else if (option === 2) {
     // Option 2: Perspective
-    for (let x = 50; x <= width - 50; x += 20) {
-      for (let y = 50; y <= height - 50; y += 20) {
-        line(x, y, width / 2, height / 2);
+    for (let x = 50; x <= width - 50; x += 50) {
+      for (let y = 50; y <= height - 50; y += 50) {
+        line(x, y, width-50 , height-50);
       }
     }
   } else if (option === 3) {
     // Option 3: Overlapping circles
-    for (let x = 50; x <= width - 50; x += 20) {
-      for (let y = 50; y <= height - 50; y += 20) {
-        ellipse(x, y, 40, 40);
+    for (let x = 50; x <= width - 50; x += 50) {
+      for (let y = 50; y <= height - 50; y += 50) {
+        ellipse(x, y, 60, 60);
       }
-    }
-  } else if (option === 4) {
-    // Option 4: Rotating arcs
-    let count = 120;
-    for (let x = 50; x <= width - 50; x += 20) {
-      for (let y = 50; y <= height - 50; y += 20) {
-        let s = map(count, 120, 0, 0, TWO_PI * 2);
-        arc(x, y, 14, 14, s, s + PI);
-        count--;
-      }
-    }
-  } else if (option === 5) {
-    // Option 5: Groups of five
-    for (let x = 50; x < width - 50; x += 20) {
-      for (let y = 50; y < height - 50; y += 20) {
-        for (let i = 0; i < 16; i += 4) {
-          line(x + i, y, x + i, y + 12);
-        }
-        line(x, y, x + 12, y + 12);
-      }
+  
     }
   }
 }
 
 function mousePressed() {
   option++;
-  if (option > 5) option = 1;
+  if (option > 3) option = 1;
 }
