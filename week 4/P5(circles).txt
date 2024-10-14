@@ -1,0 +1,19 @@
+function setup() {
+  createCanvas(600, 500); 
+  noLoop();  
+}
+
+function draw() {
+  background(0);  
+
+  for (var i = 0; i < 20; i++) {
+    let x = random(width);  
+    let y = random(height);  
+    let radius = 30;  
+    fill(random(255),random(255),random(255));  
+    noStroke();  
+    circle(x, y, 20);  
+    } 
+}
+ function mousePressed() {
+  redraw();  }

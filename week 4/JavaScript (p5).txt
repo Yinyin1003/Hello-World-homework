@@ -1,0 +1,48 @@
+// Reference: Form+Code in Design, Art, and Architecture (https://formandcode.com/code-examples/repeat-embedded)
+let option = 1;
+
+function setup() {
+  createCanvas(400, 300);
+  noFill();
+}
+
+function draw() {
+  background(0);
+  stroke(230, 100, 130);
+
+  if (option === 1) {
+    // Option 1: Stitches
+    for (let x = 50; x <= width - 50; x += 50) {
+      for (let y = 50; y <= height - 50; y += 50) {
+        triangle(x - 15, y - 15, x + 15, y + 15,x+15,y-15);
+        line(x + 15, y - 15, x - 15, y + 15);
+      }
+    }
+  } else if (option === 2) {
+    // Option 2: Perspective
+    for (let x = 50; x <= width - 50; x += 50) {
+      for (let y = 50; y <= height - 50; y += 50) {
+        line(x, y, width-50 , height-50);
+      }
+    }
+  } else if (option === 3) {
+    // Option 3: Overlapping circles
+    for (let x = 50; x <= width - 100; x += 50) {
+      for (let y = 50; y <= height - 100; y += 50) {
+        rect(x, y, 60, 60);
+      }
+    }
+  } else if (option === 4) {
+    for (let x = 50; x <= width-50; x += 50) {
+      for (let y = 50; y <= height-50; y+=50) {  
+        arc(x, y, 30, 30, x, x+PI);
+      }
+  
+    }
+  }
+}
+
+function mousePressed() {
+  option++;
+  if (option > 4) option = 1;
+}
