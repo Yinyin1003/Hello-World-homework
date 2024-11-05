@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+  
+  <script src="https://unpkg.com/ml5@0.5.0/dist/ml5.min.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="utf-8" />
+
+</head>
+
+<body>
+  <script src="sketch.js"></script>
+</body>
+
+</html>
+</head>
+<body>
+    <h1>Image Classification with ml5.js</h1>
+    <p id="result"> </p>
+    <div id="canvas-container"></div>
+
+    <script>
+        // Classifier Variable
+        let classifier;
+        // Model URL
+        let imageModelURL = 'https://teachablemachine.withgoogle.com/models/HCuzJvVuT/';
+        
+        // Video
+        let video;
+        let flippedVideo;
+        // To store the classification
+        let label = "";
+        
+        function preload() {
+            classifier = ml5.imageClassifier(imageModelURL + 'model.json');
+        }
+
+        function setup() {
+            let canvas = createCanvas(320, 260);
+            canvas.parent('canvas-container'); // 将 canvas 放入特定的容器中
+            // Create the video
+            video = createCapture(VIDEO);
+            video.size(320, 240);
+            video.hide();
+
+            // Start classifying
+            classifyVideo();
+        }
+
+        function draw() {
+            background(0);
+
+            // Flip the video image in draw
+            push();
+            translate(width, 0); // 将画布起点移到右侧
+            scale(-1, 1);        // 水平翻转画布
+            image(video, 0, 0, width, height); // 显示翻转后的视频
+            pop();
+            let emoji = "";
+            if (label == "red") {
+            emoji = "🍎";} 
+            else if (label == "orange") {
+             emoji = "🍊";
+             } else if (label == "blue") {
+              emoji = "🫐";
+            }
+            textSize(50);
+            text(emoji, width / 2, height / 2);
+        } 
+
+        // Get a prediction for the current video frame
+        function classifyVideo() {
+            classifier.classify(video, gotResult); // 使用视频帧进行分类
+        }
+
+        // When we get a result
+        function gotResult(error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            label = results[0].label;
+            document.getElementById('result').innerText = 'Result: ' + label;
+            classifyVideo();
+        }
+    </script>
+</body>
+</html>
